@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>हार्वेस्टर कटिंग ट्रैकर</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="premium-header">
+            <div class="header-content">
+                <div class="header-icon-container">
+                    <i data-lucide="tractor" class="header-icon"></i>
+                </div>
+                <h1 class="header-title">हार्वेस्टर ट्रैकर</h1>
+                <p class="header-subtitle">कटिंग मैनेजमेंट सिस्टम</p>
+            </div>
+        </header>
+
+        <!-- Tab Navigation -->
+        <nav class="premium-tab-navigation">
+            <div class="tab-gradient">
+                <button class="premium-tab-button active" data-tab="entry">
+                    <div class="tab-icon-container">
+                        <i data-lucide="plus-circle"></i>
+                    </div>
+                    <span>नई एंट्री</span>
+                </button>
+                <button class="premium-tab-button" data-tab="records">
+                    <div class="tab-icon-container">
+                        <i data-lucide="file-text"></i>
+                    </div>
+                    <span>रिकॉर्ड</span>
+                </button>
+                <button class="premium-tab-button" data-tab="summary">
+                    <div class="tab-icon-container">
+                        <i data-lucide="bar-chart-3"></i>
+                    </div>
+                    <span>सारांश</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- New Entry Tab -->
+            <div id="entry-tab" class="tab-content active">
+                <div class="content-container">
+                    <form class="premium-form" id="entryForm">
+                        <div class="simple-form-card">
+                            <div class="form-header">
+                                <div class="form-icon-container">
+                                    <i data-lucide="edit-3" class="form-icon"></i>
+                                </div>
+                                <h2 class="form-title">नई एंट्री जोड़ें</h2>
+                                <p class="form-subtitle">किसान और कटिंग की जानकारी भरें</p>
+                            </div>
+
+                            <div class="form-grid">
+                                <!-- Row 1: Basic Info -->
+                                <div class="form-row">
+                                    <div class="input-group">
+                                        <label class="premium-label">
+                                            <i data-lucide="user" class="label-icon"></i>
+                                            किसान का नाम *
+                                        </label>
+                                        <input type="text" id="farmerName" class="premium-input" placeholder="किसान का नाम दर्ज करें" required>
+                                    </div>
+                                    <div class="input-group">
+                                        <label class="premium-label">
+                                            <i data-lucide="phone" class="label-icon"></i>
+                                            संपर्क नंबर *
+                                        </label>
+                                        <input type="tel" id="contactNumber" class="premium-input" placeholder="मोबाइल नंबर" maxlength="10" required>
+                                    </div>
+                                </div>
+
+                                <!-- Row 2: Date and Land -->
+                                <div class="form-row">
+                                    <div class="input-group">
+                                        <label class="premium-label">
+                                            <i data-lucide="calendar" class="label-icon"></i>
+                                            तारीख
+                                        </label>
+                                        <input type="date" id="date" class="premium-input date-picker">
+                                    </div>
+                                    <div class="input-group">
+                                        <label class="premium-label">
+                                            <i data-lucide="map" class="label-icon"></i>
+                                            ज़मीन (एकड़) *
+                                        </label>
+                                        <input type="number" id="landInAcres" class="premium-input" placeholder="एकड़ में" step="0.01" required>
+                                    </div>
+                                </div>
+
+                                <!-- Row 3: Rate and Total -->
+                                <div class="form-row">
+                                    <div class="input-group">
+                                        <label class="premium-label">
+                                            <i data-lucide="indian-rupee" class="label-icon"></i>
+                                            प्रति एकड़ दर (₹) *
+                                        </label>
+                                        <input type="number" id="ratePerAcre" class="premium-input" placeholder="दर दर्ज करें" value="2500" required>
+                                    </div>
+                                    <div class="input-group">
+                                        <label class="premium-label">
+                                            <i data-lucide="calculator" class="label-icon"></i>
+                                            कुल राशि
+                                        </label>
+                                        <div class="calculated-display" id="totalPayment">₹ 0</div>
+                                    </div>
+                                </div>
+
+                                <!-- Row 4: Payment Info -->
+                                <div class="form-row">
+                                    <div class="input-group">
+                                        <label class="premium-label">
+                                            <i data-lucide="banknote" class="label-icon"></i>
+                                            नकद भुगतान (₹)
+                                        </label>
+                                        <input type="number" id="nakadPaid" class="premium-input" placeholder="नकद में दी गई राशि" min="0">
+                                    </div>
+                                    <div class="input-group">
+                                        <label class="premium-label">
+                                            <i data-lucide="clock" class="label-icon"></i>
+                                            पूरा भुगतान तारीख
+                                        </label>
+                                        <input type="date" id="fullPaymentDate" class="premium-input date-picker">
+                                    </div>
+                                </div>
+
+                                <!-- Payment Summary -->
+                                <div class="payment-summary">
+                                    <div class="summary-item">
+                                        <span class="summary-label">कुल राशि:</span>
+                                        <span class="summary-value total" id="summaryTotal">₹ 0</span>
+                                    </div>
+                                    <div class="summary-item">
+                                        <span class="summary-label">नकद भुगतान:</span>
+                                        <span class="summary-value paid" id="summaryPaid">₹ 0</span>
+                                    </div>
+                                    <div class="summary-item">
+                                        <span class="summary-label">बकाया राशि:</span>
+                                        <span class="summary-value pending" id="summaryPending">₹ 0</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="premium-save-button">
+                                <i data-lucide="save"></i>
+                                <span>रिकॉर्ड सेव करें</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Records Tab -->
+            <div id="records-tab" class="tab-content">
+                <div class="content-container">
+                    <div class="records-header">
+                        <div class="records-header-content">
+                            <div class="records-icon-container">
+                                <i data-lucide="file-text" class="records-icon"></i>
+                            </div>
+                            <h2 class="records-title">सभी रिकॉर्ड</h2>
+                            <p class="records-subtitle" id="recordsCount">कुल 0 रिकॉर्ड मिले</p>
+                        </div>
+                    </div>
+
+                    <div class="search-section">
+                        <div class="search-container">
+                            <i data-lucide="search" class="search-icon"></i>
+                            <input type="text" id="searchInput" class="search-input" placeholder="नाम, नंबर या तारीख से खोजें">
+                        </div>
+                    </div>
+
+                    <div class="records-list" id="recordsList">
+                        <div class="empty-state" id="emptyState">
+                            <div class="empty-state-content">
+                                <i data-lucide="inbox" class="empty-state-icon"></i>
+                                <h3 class="empty-state-title">कोई रिकॉर्ड नहीं मिला</h3>
+                                <p class="empty-state-subtitle">नई एंट्री जोड़ने के लिए "नई एंट्री" टैब पर जाएं</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Tab -->
+            <div id="summary-tab" class="tab-content">
+                <div class="content-container">
+                    <div class="summary-header">
+                        <div class="summary-header-content">
+                            <div class="summary-icon-container">
+                                <i data-lucide="bar-chart-3" class="summary-icon"></i>
+                            </div>
+                            <h2 class="summary-title">सारांश</h2>
+                            <p class="summary-subtitle">हार्वेस्टर कटिंग रिपोर्ट</p>
+                        </div>
+                    </div>
+
+                    <div class="period-selector-section">
+                        <div class="period-card">
+                            <h3 class="section-title">समय अवधि चुनें</h3>
+                            <div class="period-buttons">
+                                <button class="period-button" data-period="today">
+                                    <span class="period-label">आज</span>
+                                    <span class="period-count" id="todayCount">0</span>
+                                </button>
+                                <button class="period-button" data-period="week">
+                                    <span class="period-label">सप्ताह</span>
+                                    <span class="period-count" id="weekCount">0</span>
+                                </button>
+                                <button class="period-button" data-period="month">
+                                    <span class="period-label">महीना</span>
+                                    <span class="period-count" id="monthCount">0</span>
+                                </button>
+                                <button class="period-button active" data-period="all">
+                                    <span class="period-label">सभी</span>
+                                    <span class="period-count" id="allCount">0</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card primary-stat">
+                            <div class="stat-icon-container">
+                                <i data-lucide="users" class="stat-icon"></i>
+                            </div>
+                            <div class="stat-content">
+                                <span class="stat-title">कुल रिकॉर्ड</span>
+                                <div class="stat-value" id="totalRecords">0</div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card secondary-stat">
+                            <div class="stat-icon-container">
+                                <i data-lucide="map-pin" class="stat-icon"></i>
+                            </div>
+                            <div class="stat-content">
+                                <span class="stat-title">कुल ज़मीन</span>
+                                <div class="stat-value" id="totalLand">0 एकड़</div>
+                                <div class="stat-subtitle" id="totalLandDismil">0 डिसमिल</div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card success-stat">
+                            <div class="stat-icon-container">
+                                <i data-lucide="indian-rupee" class="stat-icon"></i>
+                            </div>
+                            <div class="stat-content">
+                                <span class="stat-title">कुल भुगतान</span>
+                                <div class="stat-value" id="totalPaymentStat">₹ 0</div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card warning-stat">
+                            <div class="stat-icon-container">
+                                <i data-lucide="alert-circle" class="stat-icon"></i>
+                            </div>
+                            <div class="stat-content">
+                                <span class="stat-title">कुल बकाया</span>
+                                <div class="stat-value" id="totalPending">₹ 0</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="additional-stats" id="additionalStats" style="display: none;">
+                        <div class="additional-stats-header">
+                            <i data-lucide="info" class="additional-stats-icon"></i>
+                            <h3 class="section-title">अतिरिक्त विवरण</h3>
+                        </div>
+                        <div class="additional-stats-container">
+                            <div class="additional-stat-item">
+                                <span class="additional-stat-label">औसत ज़मीन प्रति रिकॉर्ड</span>
+                                <span class="additional-stat-value" id="avgLandPerRecord">0 एकड़</span>
+                            </div>
+                            <div class="additional-stat-item">
+                                <span class="additional-stat-label">औसत भुगतान प्रति रिकॉर्ड</span>
+                                <span class="additional-stat-value" id="avgPaymentPerRecord">₹ 0</span>
+                            </div>
+                            <div class="additional-stat-item">
+                                <span class="additional-stat-label">औसत दर प्रति एकड़</span>
+                                <span class="additional-stat-value" id="averageRate">₹ 0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
